@@ -1,0 +1,6 @@
+@Garantias.API_HostAddress = http://localhost:5177
+
+GET {{Garantias.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
