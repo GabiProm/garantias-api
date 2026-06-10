@@ -211,6 +211,43 @@ namespace Garantias.API.Controllers
             });
         }
 
+        // ✅ OBTENER POR ID (con detalles)
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var ticket = _context.Tickets
+                .Include(t => t.Detalles)
+                .ThenInclude(d => d.Componente)
+                .FirstOrDefault(t => t.Id == id);
+
+            if (ticket == null)
+                return NotFound();
+
+            return Ok(new
+            {
+                ticket.Id,
+                ticket.NroInventario,
+                ticket.Serie,
+                ticket.Problema,
+                ticket.FechaReporte,
+                ticket.FechaValidacion,
+                ticket.ProcedeGarantia,
+                TipoDano = TipoDanoHelper.GetDescripcion(ticket.TipoDano),
+                ticket.FechaGestionGarantia,
+                ticket.Observacion,
+                Estado = ticket.FechaGestionGarantia == null ? "Abierto" : "Cerrado",
+
+                Detalles = ticket.Detalles.Select(d => new
+                {
+                    d.Id,
+                    Componente = d.Componente.Nombre,
+                    d.TipoGarantia,
+                    d.Observaciones,
+                    d.FechaRegistro
+                })
+            });
+        }
+
         // ✅ ELIMINAR
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

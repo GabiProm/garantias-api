@@ -143,3 +143,4 @@ C:\Users\User\Documents\GABRIEL\VSCODE\GarantiasApp\Garantias.API\bin\Debug\net8
 C:\Users\User\Documents\GABRIEL\VSCODE\GarantiasApp\Garantias.API\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\User\Documents\GABRIEL\VSCODE\GarantiasApp\Garantias.API\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 C:\Users\User\Documents\GABRIEL\VSCODE\GarantiasApp\Garantias.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Newtonsoft.dll
+C:\Users\User\Documents\GABRIEL\VSCODE\GarantiasApp\Garantias.API\obj\Debug\net8.0\Garantias.API.sourcelink.json
