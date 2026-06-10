@@ -37,9 +37,10 @@ namespace Garantias.API.Controllers
                 t.Problema,
                 t.FechaReporte,
                 t.FechaValidacion,
-                t.ProcedeGarantia,
+                ProcedeGarantia = t.ProcedeGarantia ? "Sí" : "No",
                 TipoDano = TipoDanoHelper.GetDescripcion(t.TipoDano),
                 t.FechaGestionGarantia,
+                Trimestre = FechaHelper.GetTrimestre(t.FechaGestionGarantia),
                 t.Observacion,
                 Estado = t.FechaGestionGarantia == null ? "Abierto" : "Cerrado",
 
@@ -82,9 +83,10 @@ namespace Garantias.API.Controllers
                 ticket.Problema,
                 ticket.FechaReporte,
                 ticket.FechaValidacion,
-                ticket.ProcedeGarantia,
+                ProcedeGarantia = ticket.ProcedeGarantia ? "Sí" : "No",
                 TipoDano = TipoDanoHelper.GetDescripcion(ticket.TipoDano),
                 ticket.FechaGestionGarantia,
+                Trimestre = FechaHelper.GetTrimestre(ticket.FechaGestionGarantia),
                 ticket.Observacion,
                 Estado = ticket.FechaGestionGarantia == null ? "Abierto" : "Cerrado",
 
@@ -142,6 +144,10 @@ namespace Garantias.API.Controllers
             if (ticket.FechaGestionGarantia != null)
                 return BadRequest("El ticket ya está cerrado");
 
+            // ✅ Fecha reporte (siempre editable)
+            if (dto.FechaReporte.HasValue)
+                ticket.FechaReporte = dto.FechaReporte.Value;
+
             // ✅ Fecha validación (siempre editable)
             if (dto.FechaValidacion.HasValue)
                 ticket.FechaValidacion = dto.FechaValidacion;
@@ -149,6 +155,12 @@ namespace Garantias.API.Controllers
             // ✅ Observación
             if (!string.IsNullOrEmpty(dto.Observacion))
                 ticket.Observacion = dto.Observacion;
+
+            if (dto.TipoDano.HasValue)
+                ticket.TipoDano = (TipoDanoEnum)dto.TipoDano.Value;
+
+            if (dto.ProcedeGarantia.HasValue)
+                ticket.ProcedeGarantia = dto.ProcedeGarantia.Value;
 
             // ✅ Cierre del ticket
             if (dto.FechaGestionGarantia.HasValue)
@@ -231,8 +243,9 @@ namespace Garantias.API.Controllers
                 ticket.Problema,
                 ticket.FechaReporte,
                 ticket.FechaValidacion,
-                ticket.ProcedeGarantia,
+                ProcedeGarantia = ticket.ProcedeGarantia ? "Sí" : "No",
                 TipoDano = TipoDanoHelper.GetDescripcion(ticket.TipoDano),
+                Trimestre = FechaHelper.GetTrimestre(ticket.FechaGestionGarantia),
                 ticket.FechaGestionGarantia,
                 ticket.Observacion,
                 Estado = ticket.FechaGestionGarantia == null ? "Abierto" : "Cerrado",
