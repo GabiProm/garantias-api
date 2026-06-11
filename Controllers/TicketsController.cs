@@ -162,6 +162,18 @@ namespace Garantias.API.Controllers
             if (dto.ProcedeGarantia.HasValue)
                 ticket.ProcedeGarantia = dto.ProcedeGarantia.Value;
 
+            // ✅ Ticket Rimac
+            if (!string.IsNullOrEmpty(dto.TicketRimac))
+            {
+                ticket.TicketRimac = dto.TicketRimac;
+            }
+
+            // ✅ Nro Caso
+            if (!string.IsNullOrEmpty(dto.NroCaso))
+            {
+                ticket.NroCaso = dto.NroCaso;
+            }
+
             // ✅ Cierre del ticket
             if (dto.FechaGestionGarantia.HasValue)
             {
@@ -179,6 +191,8 @@ namespace Garantias.API.Controllers
                 ticket.FechaValidacion,
                 ticket.FechaGestionGarantia,
                 ticket.Observacion,
+                ticket.TicketRimac,
+                ticket.NroCaso,
                 Estado = ticket.FechaGestionGarantia == null ? "Abierto" : "Cerrado"
             });
         }
@@ -240,6 +254,8 @@ namespace Garantias.API.Controllers
                 ticket.Id,
                 ticket.NroInventario,
                 ticket.Serie,
+                ticket.TicketRimac,
+                ticket.NroCaso,
                 ticket.Problema,
                 ticket.FechaReporte,
                 ticket.FechaValidacion,

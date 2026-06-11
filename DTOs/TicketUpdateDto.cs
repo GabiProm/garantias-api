@@ -9,5 +9,7 @@ namespace Garantias.API.DTOs
         public int? TipoDano { get; set; } // ✅ NUEVO
         public bool? ProcedeGarantia { get; set; } // ✅ NUEVO
         public DateTime? FechaReporte { get; set; } // ✅ NUEVO
+        public string? TicketRimac { get; set; } // ✅ NUEVO
+        public string? NroCaso { get; set; } // ✅ NUEVO
     }
 }
