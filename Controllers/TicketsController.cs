@@ -39,6 +39,7 @@ namespace Garantias.API.Controllers
                 t.FechaValidacion,
                 ProcedeGarantia = t.ProcedeGarantia ? "Sí" : "No",
                 TipoDano = TipoDanoHelper.GetDescripcion(t.TipoDano),
+                TipoDanoId = (int)t.TipoDano,
                 t.FechaGestionGarantia,
                 Trimestre = FechaHelper.GetTrimestre(t.FechaGestionGarantia),
                 t.Observacion,
@@ -85,6 +86,7 @@ namespace Garantias.API.Controllers
                 ticket.FechaValidacion,
                 ProcedeGarantia = ticket.ProcedeGarantia ? "Sí" : "No",
                 TipoDano = TipoDanoHelper.GetDescripcion(ticket.TipoDano),
+                TipoDanoId = (int)ticket.TipoDano,
                 ticket.FechaGestionGarantia,
                 Trimestre = FechaHelper.GetTrimestre(ticket.FechaGestionGarantia),
                 ticket.Observacion,
@@ -193,9 +195,13 @@ namespace Garantias.API.Controllers
                 ticket.Observacion,
                 ticket.TicketRimac,
                 ticket.NroCaso,
+                TipoDano = TipoDanoHelper.GetDescripcion(ticket.TipoDano),
+                TipoDanoId = (int)ticket.TipoDano,
                 Estado = ticket.FechaGestionGarantia == null ? "Abierto" : "Cerrado"
             });
         }
+
+        
 
         // ✅ AGREGAR COMPONENTE
         [HttpPost("{id}/agregar-componente")]
@@ -261,6 +267,7 @@ namespace Garantias.API.Controllers
                 ticket.FechaValidacion,
                 ProcedeGarantia = ticket.ProcedeGarantia ? "Sí" : "No",
                 TipoDano = TipoDanoHelper.GetDescripcion(ticket.TipoDano),
+                TipoDanoId = (int)ticket.TipoDano,
                 Trimestre = FechaHelper.GetTrimestre(ticket.FechaGestionGarantia),
                 ticket.FechaGestionGarantia,
                 ticket.Observacion,
@@ -274,6 +281,71 @@ namespace Garantias.API.Controllers
                     d.Observaciones,
                     d.FechaRegistro
                 })
+            });
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateById(int id, TicketUpdateDto dto)
+        {
+            var ticket = _context.Tickets.Find(id);
+
+            if (ticket == null)
+                return NotFound("Ticket no encontrado");
+
+            // 🔴 No permitir modificar si ya está cerrado
+            if (ticket.FechaGestionGarantia != null)
+                return BadRequest("El ticket ya está cerrado");
+
+            // ✅ Fecha reporte
+            if (dto.FechaReporte.HasValue)
+                ticket.FechaReporte = dto.FechaReporte.Value;
+
+            // ✅ Fecha validación
+            if (dto.FechaValidacion.HasValue)
+                ticket.FechaValidacion = dto.FechaValidacion;
+
+            // ✅ Observación
+            if (!string.IsNullOrEmpty(dto.Observacion))
+                ticket.Observacion = dto.Observacion;
+
+            // ✅ Tipo de daño
+            if (dto.TipoDano.HasValue)
+                ticket.TipoDano = (TipoDanoEnum)dto.TipoDano.Value;
+
+            // ✅ Procede garantía
+            if (dto.ProcedeGarantia.HasValue)
+                ticket.ProcedeGarantia = dto.ProcedeGarantia.Value;
+
+            // ✅ Ticket Rimac
+            if (!string.IsNullOrEmpty(dto.TicketRimac))
+                ticket.TicketRimac = dto.TicketRimac;
+
+            // ✅ Número de caso
+            if (!string.IsNullOrEmpty(dto.NroCaso))
+                ticket.NroCaso = dto.NroCaso;
+
+            // ✅ Cierre del ticket
+            if (dto.FechaGestionGarantia.HasValue)
+            {
+                if (string.IsNullOrEmpty(dto.Observacion))
+                    return BadRequest("Debe ingresar observación para cerrar el ticket");
+
+                ticket.FechaGestionGarantia = dto.FechaGestionGarantia.Value;
+            }
+
+            _context.SaveChanges();
+
+            return Ok(new
+            {
+                ticket.Id,
+                ticket.FechaValidacion,
+                ticket.FechaGestionGarantia,
+                ticket.Observacion,
+                ticket.TicketRimac,
+                ticket.NroCaso,
+                TipoDano = TipoDanoHelper.GetDescripcion(ticket.TipoDano),
+                TipoDanoId = (int)ticket.TipoDano,
+                Estado = ticket.FechaGestionGarantia == null ? "Abierto" : "Cerrado"
             });
         }
 
@@ -296,3 +368,4 @@ namespace Garantias.API.Controllers
         }
     }
 }
+
