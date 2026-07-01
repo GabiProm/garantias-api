@@ -191,21 +191,61 @@ Repositorio QA:
 
 ---
 
-## Capturas
+## 📸 Capturas
 
 ### 📊 Dashboard
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](/screenshots/dashboard-general.PNG)
 
+---
 
+### 📄 Crear Ticket
+Apartado para la creación de tickets.
+
+![Crear Ticket](/screenshots/crear.PNG)
+
+---
+
+### 📄 Lista de Tickets
+Apartado para la visualización de tickets creados, así como el detalle de cada uno y su eliminación si es necesario.
+
+![lista](/screenshots/lista.PNG)
+
+![Detalle](/screenshots/detalle.PNG)
+
+---
+
+### 📄 Buscar Tickets
+Apartado para la búsqueda de tickets.
+
+![Buscar](/screenshots/buscar.PNG)
+
+---
 
 ### 📈 Gráficos
-![Charts](./screenshots/charts.png)
 
+![Procede Garantía](/screenshots/procede.PNG)
 
+![Tipo Daño](/screenshots/tipodano.PNG)
 
-### 📄 Reporte generado
-![Reporte](./screenshots/report.png)
+![Casos por Mes](/screenshots/casomes.PNG)
 
+![Casos por Trimestre](/screenshots/casotrimestre.PNG)
+
+![Ranking Componentes](/screenshots/ranking.PNG)
+
+---
+
+### 📄 Reporte Word
+Resultado de la generación dinámica de un informe en función de los filtros seleccionados en el dashboard.
+
+![Reporte Word](./screenshots/reporte-word.PNG)
+
+---
+
+### 📊 Exportación CSV
+Resultado de la exportación de data en función de los filtros aplicados. Incluye resumen, análisis y data completa.
+
+![Export CSV](/screenshots/export-csv.PNG)
 ---
 
 ## Valor del Proyecto
