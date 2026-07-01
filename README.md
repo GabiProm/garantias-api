@@ -1,86 +1,231 @@
-# 📊 Sistema de Gestión de Tickets + Dashboard Analítico + Reportes Automáticos
+# Sistema de Gestión de Garantías - API
 
-Sistema completo para la gestión de tickets de garantía que incluye un backend robusto, dashboard interactivo con visualizaciones y generación automática de informes ejecutivos en Word.
-
----
-
-## 🚀 Descripción
-
-Esta solución permite gestionar incidencias de equipos de manera integral, desde su registro hasta su análisis, proporcionando herramientas de visualización y reporting automatizado para la toma de decisiones.
-
-Incluye no solo la gestión de tickets, sino también un módulo analítico que transforma datos operativos en información útil para el negocio.
+API REST desarrollada con ASP.NET Core 8 para la gestión de garantías de equipos Lenovo. Permite administrar tickets, componentes dañados, seguimiento de incidencias y exponer información para dashboards analíticos y generación de reportes ejecutivos.
 
 ---
 
-## 🧩 Funcionalidades
+## Descripción
 
-### ✔ Gestión de Tickets
-- Registro, seguimiento y cierre de tickets
-- Gestión de componentes dañados
-- Control de estados (Abierto / Cerrado)
-- Búsqueda flexible por serie o inventario
-- Validación y lógica de negocio
+El sistema centraliza el ciclo completo de atención de incidencias:
 
-### 📊 Dashboard Analítico
-- KPIs dinámicos (Total, Abiertos, Cerrados, Garantías)
-- Gráfico de distribución de garantías (donut)
-- Análisis de tipos de daño
-- Ranking de componentes más afectados
-- Filtros por rango de fechas en tiempo real
+- Registro de tickets
+- Seguimiento de garantías
+- Gestión de componentes reemplazados
+- Control de estados
+- Consulta de historial
+- Exposición de datos para dashboards
+- Integración con reportes automatizados
 
-### 📄 Reportes Automáticos
-- Generación de informes en Word (docx)
-- Inserción automática de gráficos del dashboard
-- Tablas dinámicas de datos
-- Análisis automático basado en métricas
-- Formato tipo informe ejecutivo (portada, header, footer)
-- Exportación de data (csv)
+La API es consumida por una aplicación frontend desarrollada en React.
+
 ---
 
-## 🛠 Tecnologías
+## Arquitectura
+
+```text
+Frontend (React)
+        |
+        v
+API REST (.NET 8)
+        |
+        v
+SQL Server
+```
+
+---
+
+## Funcionalidades
+
+### Gestión de Tickets
+
+- Crear tickets
+- Consultar tickets
+- Actualizar tickets
+- Eliminar tickets
+- Buscar por serie
+- Buscar por inventario
+
+### Gestión de Garantías
+
+- Registro de casos Lenovo
+- Control de procedencia de garantía
+- Seguimiento de estado
+
+### Gestión de Componentes
+
+- Agregar componentes reemplazados
+- Consultar historial de componentes
+- Relación Ticket-Componente
+
+### Dashboard
+
+La API suministra información para:
+
+- Total de tickets
+- Garantías procedentes y no procedentes
+- Casos abiertos y cerrados
+- Casos por mes
+- Casos por trimestre
+- Ranking de componentes
+- Tipos de daño
+
+---
+
+## Endpoints Principales
+
+### Tickets
+
+```http
+GET    /api/tickets
+POST   /api/tickets
+GET    /api/tickets/{id}
+PUT    /api/tickets/{id}
+DELETE /api/tickets/{id}
+```
+
+### Búsquedas
+
+```http
+GET /api/tickets/buscar
+```
+
+### Componentes
+
+```http
+POST /api/tickets/{id}/componentes
+```
+
+---
+
+## Tecnologías
 
 ### Backend
-- ASP.NET Core (.NET 8)
+
+- ASP.NET Core 8
 - Entity Framework Core
 - SQL Server
-- Stored Procedures
+- REST API
 
-### Frontend
-- React
-- Recharts (visualización de datos)
-- Tailwind CSS
+### DevOps
 
-### Dev & Tools
 - Docker
+- Git
 - GitHub
-- html2canvas (captura de gráficos)
-- docx (generación de documentos Word)
+
+### Testing
+
+- Playwright
+- Postman
+- Newman
 
 ---
 
-## 📸 Capturas
+## Base de Datos
 
-### 📊 Dashboard
+Modelo principal:
+
+```text
+Tickets
+│
+├── ComponentesDanados
+```
+
+Características:
+
+- Relación uno a muchos
+- Persistencia en SQL Server
+- Entity Framework Core
+- Migraciones controladas
+
+---
+
+## Ejecución Local
+
+### Restaurar dependencias
+
+```bash
+dotnet restore
+```
+
+### Ejecutar API
+
+```bash
+dotnet run
+```
+
+### Aplicar migraciones
+
+```bash
+dotnet ef database update
+```
+
+---
+
+## Testing Automatizado
+
+El sistema cuenta con un repositorio independiente de QA Automation:
+
+### UI Testing
+
+- Playwright
+- Page Object Model
+
+### API Testing
+
+- Postman
+- Newman
+
+Casos cubiertos:
+
+- Crear Ticket
+- Buscar Ticket
+- Actualizar Ticket
+- Agregar Componente
+- Dashboard
+- Exportación de Reportes
+- CRUD API completo
+
+Repositorio QA:
+
+🔗 Garantias-QA
+
+---
+
+## Capturas
+
+### Dashboard
+
 ![Dashboard](./screenshots/dashboard.png)
 
-### 📈 Gráficos
+### Gráficos
+
 ![Charts](./screenshots/charts.png)
 
-### 📄 Reporte generado
+### Reporte Generado
+
 ![Reporte](./screenshots/report.png)
 
 ---
 
-## 🧠 Valor del Proyecto
+## Valor del Proyecto
 
-- Integra gestión operativa con analítica de datos
-- Automatiza la generación de informes ejecutivos
-- Aplica conceptos de Business Intelligence (BI)
-- Replica escenarios reales del entorno empresarial
+Este proyecto permitió aplicar conocimientos de:
+
+- Desarrollo Backend
+- Arquitectura REST
+- Modelado de Base de Datos
+- Entity Framework Core
+- SQL Server
+- Docker
+- Testing Automatizado
+- API Testing
+- Business Intelligence
+- Reportería Ejecutiva
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
 **Henry Gabriel Gómez Gerónimo**
 
+Ingeniero Electrónico | Soporte TI N2 | Backend Developer | QA Automation | DevOps Enthusiast
