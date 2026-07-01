@@ -193,16 +193,17 @@ Repositorio QA:
 
 ## Capturas
 
-### Dashboard
-
+### 📊 Dashboard
 ![Dashboard](./screenshots/dashboard.png)
 
-### Gráficos
 
+
+### 📈 Gráficos
 ![Charts](./screenshots/charts.png)
 
-### Reporte Generado
 
+
+### 📄 Reporte generado
 ![Reporte](./screenshots/report.png)
 
 ---
