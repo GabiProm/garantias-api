@@ -194,7 +194,7 @@ Repositorio QA:
 ## 📸 Capturas
 
 ### 📊 Dashboard
-![Dashboard](/screenshots/dashboard-general.PNG)
+![Dashboard](./screenshots/dashboard-general.PNG)
 
 ---
 
