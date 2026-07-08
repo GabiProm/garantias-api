@@ -33,6 +33,50 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+
+// Aplicar migraciones automáticamente en Docker / CI
+if (
+    app.Environment.IsDevelopment() ||
+    Environment.GetEnvironmentVariable("APPLY_MIGRATIONS") == "true"
+)
+{
+    using var scope = app.Services.CreateScope();
+
+    var db =
+        scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    var retries = 10;
+
+    while (retries > 0)
+    {
+        try
+        {
+            db.Database.Migrate();
+
+            Console.WriteLine("Migraciones aplicadas correctamente.");
+
+            break;
+        }
+        catch (Exception ex)
+        {
+            retries--;
+
+            Console.WriteLine(
+                $"No se pudo conectar a SQL Server. Reintentos restantes: {retries}"
+            );
+
+            Console.WriteLine(ex.Message);
+
+            if (retries == 0)
+            {
+                throw;
+            }
+
+            await Task.Delay(5000);
+        }
+    }
+}
+
 // ✅ Swagger UI
 if (app.Environment.IsDevelopment())
 {
@@ -40,7 +84,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Evitar redirección HTTPS dentro de Docker si se desactiva por variable
+if (
+    Environment.GetEnvironmentVariable("DISABLE_HTTPS_REDIRECTION") != "true"
+)
+{
 app.UseHttpsRedirection();
+}
 
 app.UseCors("AllowFrontend");
 

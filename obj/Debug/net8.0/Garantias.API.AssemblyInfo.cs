@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Garantias.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b4900fd52902033fd72dfd33d23f4f4ea9a1381f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6c86e09d6f9a6d09f5b506a05023be7ad655c52")]
 [assembly: System.Reflection.AssemblyProductAttribute("Garantias.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Garantias.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
